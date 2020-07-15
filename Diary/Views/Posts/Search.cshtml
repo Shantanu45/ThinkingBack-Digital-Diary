@@ -1,0 +1,68 @@
+﻿@model List<Diary.Models.Post>
+@using System.Globalization
+<link rel="stylesheet" href="~/css/homeStyle.css" />
+
+<div class="container-fluid w-75 ">
+    <h2 style="text-align:center">Search Results</h2>
+    <hr />
+    @if (Model.Count > 0)
+    {
+        @for (int i = 0; i < Model.Count; i += 2)
+        {
+            var tcolor_2 = Model[i].themeColor.Split(',');
+            tcolor_2[2] = "95%";
+            var tmodifiedColor_2 = string.Join(',', tcolor_2);
+            <div class="row mx-lg-n5">
+
+                <div class=" col-lg-5 col-sm-12 card m-2 p-0" id="detail_card">
+                    <div class="row card-body m-0 p-0 h-100">
+                        <div class="col-8 m-0 py-3 px-3" id="right_column" style="background-color:hsl(@tmodifiedColor_2)">
+                            <h3 class="card-title">@Model[i].Title</h3>
+                            <hr />
+                            <p class="card-text" style="font-size: 1.5em">
+                                @Html.Raw(string.Join(' ', Model[i].Body.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(10)))
+
+                            </p>
+                            <a class="card-link stretched-link" asp-controller="Posts" asp-action="FullPost" asp-route-id="@Model[i].Id"></a>
+                        </div>
+                        <div class="col-4 h-100" id="left_column" style="background-color:hsl(@Model[i].themeColor)">
+                            <span id="date day">@Model[i].Date.Day</span>
+                            <br />
+                            <span id="date month">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model[i].Date.Month)</span>
+                        </div>
+                    </div>
+                </div>
+                @if (i < Model.Count - 1)
+                {
+                    var tcolor_3 = Model[i + 1].themeColor.Split(',');
+                    tcolor_3[2] = "95%";
+                    var tmodifiedColor_3 = string.Join(',', tcolor_3);
+                    <div class=" col-lg-5 col-sm-12 card m-2 p-0" id="detail_card">
+                        <div class="row card-body m-0 p-0 h-100">
+                            <div class="col-8 m-0 py-3 px-3" id="right_column" style="background-color:hsl(@tmodifiedColor_3)">
+                                <h3 class="card-title">@Model[i + 1].Title</h3>
+                                <hr />
+                                <p class="card-text" style="font-size: 1.5em">
+                                    @Html.Raw(string.Join(' ', Model[i + 1].Body.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(10)))
+
+                                </p>
+                                <a class="card-link stretched-link" asp-controller="Posts" asp-action="FullPost" asp-route-id="@Model[i+1].Id"></a>
+                            </div>
+                            <div class="col-4 h-100" id="left_column" style="background-color:hsl(@Model[i+1].themeColor)">
+                                <span id="date day">@Model[i + 1].Date.Day</span>
+                                <br />
+                                <span id="date month">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model[i + 1].Date.Month)</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            @*<a asp-controller="Posts" asp-action="FullPost" asp-route-id="@item.Id">@item.Title</a>*@
+        }
+    }
+    else
+    {
+        <p>Nothing Found!</p>
+    }
+</div>

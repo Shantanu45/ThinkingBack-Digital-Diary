@@ -1,0 +1,123 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Diary.Models.Post>
+@using ReflectionIT.Mvc.Paging
+@using System.Linq
+@using System
+@using System.Globalization
+
+@*@model List<Diary.Models.Post>*@
+<link rel="stylesheet" href="~/css/homeStyle.css" />
+
+@{int start = 1; }
+
+<div class="container-fluid w-75 ">
+    <div class="row" style="margin-bottom: 30px">
+        <form class="form-inline m-2 my-lg-0" action="Posts/Search" method="get" style="width: 100%">
+            <input class="form-control py-3 mr-sm-2" type="search" name="searchString" value="" style="border-radius:15px; background-color:rgba(255, 255, 255, 0.5); border:solid 5px #ffcea9; min-width: 200px; width:75%" />
+            <input class="btn my-2 my-sm-0" type="submit" value="Search" style="border-radius:15px; background-color:#ff7259; color:white; border:solid 3px #ff9c55" />
+        </form>
+    </div>
+    @if (Context.Request.Query["page"].ToString().Equals("1") || Context.Request.Query["page"].ToString().Equals(""))
+    {
+        <div class="row" style="min-height:200px">
+            @{start = 1;}
+            <a class="card-link col-sm-12 col-lg-5 card m-2" id="detail_card" asp-controller="Posts" asp-action="Create">
+                <div class="col p-3" style="text-align:center">
+                    <h1 style="font-size:5em">+</h1>
+                    <h5 class="card-title">How was your day?</h5>
+                </div>
+            </a>
+
+            @if (Model.Count > 0)
+            {
+                var tcolor_1 = Model[0].themeColor.Split(',');
+                tcolor_1[2] = "95%";
+                var tmodifiedColor_1 = string.Join(',', tcolor_1);
+                <div class=" col-lg-5 col-sm-12 card m-2 p-0" id="detail_card" style="background-color:hsl(@tmodifiedColor_1)">
+                    <div class="row card-body m-0 p-0 h-100">
+                        <div class="col-8 m-0 py-3 px-3" id="right_column">
+                            <h3 class="card-title">@Model[0].Title</h3>
+                            <hr />
+                            <p class="card-text" style="font-size: 1.5em">
+                                @Html.Raw(string.Join(' ', Model[0].Body.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(10)))
+                            </p>
+                            <a class="card-link stretched-link" asp-controller="Posts" asp-action="FullPost" asp-route-id="@Model[0].Id"></a>
+                        </div>
+                        <div class="col-4 h-100" id="left_column" style="background-color:hsl(@Model[0].themeColor)">
+                            <span id="date day">@Model[0].Date.Day</span>
+                            <br />
+                            <span id="date month">@Model[0].Date.ToString("MMMM")</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        start = 0;
+    }
+    @if (Model.Count > 0)
+    {
+        @for (int i = start; i < Model.Count; i += 2)
+        {
+            var tcolor_2 = Model[i].themeColor.Split(',');
+            tcolor_2[2] = "95%";
+            var tmodifiedColor_2 = string.Join(',', tcolor_2);
+            <div class="row">
+
+                <div class=" col-lg-5 col-sm-12 card m-2 p-0" id="detail_card">
+                    <div class="row card-body m-0 p-0 h-100">
+                        <div class="col-8 m-0 py-3 px-3" id="right_column" style="background-color:hsl(@tmodifiedColor_2)">
+                            <h3 class="card-title">@Model[i].Title</h3>
+                            <hr />
+                            <p class="card-text" style="font-size: 1.5em">
+                                @Html.Raw(string.Join(' ', Model[i].Body.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(10)))
+
+                            </p>
+                            <a class="card-link stretched-link" asp-controller="Posts" asp-action="FullPost" asp-route-id="@Model[i].Id"></a>
+                        </div>
+                        <div class="col-4 h-100" id="left_column" style="background-color:hsl(@Model[i].themeColor)">
+                            <span id="date day">@Model[i].Date.Day</span>
+                            <br />
+                            <span id="date month">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model[i].Date.Month)</span>
+                        </div>
+                    </div>
+                </div>
+
+                @if (i < Model.Count - 1)
+                {
+                    var tcolor_3 = Model[i + 1].themeColor.Split(',');
+                    tcolor_3[2] = "95%";
+                    var tmodifiedColor_3 = string.Join(',', tcolor_3);
+                    <div class=" col-lg-5 col-sm-12 card m-2 p-0" id="detail_card">
+                        <div class="row card-body m-0 p-0 h-100">
+                            <div class="col-8 m-0 py-3 px-3" id="right_column" style="background-color:hsl(@tmodifiedColor_3)">
+                                <h3 class="card-title">@Model[i + 1].Title</h3>
+                                <hr />
+                                <p class="card-text" style="font-size: 1.5em">
+                                    @Html.Raw(string.Join(' ', Model[i + 1].Body.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(10)))
+
+                                </p>
+                                <a class="card-link stretched-link" asp-controller="Posts" asp-action="FullPost" asp-route-id="@Model[i+1].Id"></a>
+                            </div>
+                            <div class="col-4 h-100" id="left_column" style="background-color:hsl(@Model[i+1].themeColor)">
+                                <span id="date day">@Model[i + 1].Date.Day</span>
+                                <br />
+                                <span id="date month">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model[i + 1].Date.Month)</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            @*<a asp-controller="Posts" asp-action="FullPost" asp-route-id="@item.Id">@item.Title</a>*@
+        }
+    }
+    <nav class="Page" style=" color: rgb(255, 94, 94);">
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>
+</div>
+
+
+
+

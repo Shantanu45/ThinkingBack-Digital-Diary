@@ -1,0 +1,68 @@
+﻿input {
+    display: block;
+}
+
+
+
+#login_card {
+    overflow: hidden;
+    border-radius: 15px;
+    margin:auto;
+    top: calc(50% - 150px);
+}
+
+#login_row {
+    padding-bottom: 20px;
+}
+
+#left_column_top {
+    background-color: rgb(233, 233, 233);
+}
+
+
+
+#right_column {
+    padding: 20px 0px 30px 20px;
+}
+
+    #right_column input {
+        margin: 10px;
+    }
+
+input {
+    border: solid 3px rgb(91, 190, 52);
+    border-radius: 10px;
+    width: 80%;
+    padding: 7px 7px 7px 20px;
+    font-size: 1.3em;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#forgot_password {
+    text-align: right;
+    display: block;
+    width: 80%;
+    color: rgb(255, 148, 72);
+}
+
+#sign_up_text {
+    margin: auto;
+    color: rgb(91, 190, 52);
+    font-size: 1.2em;
+}
+
+#log_in_button {
+    border: none;
+    background-color: rgb(91, 190, 52);
+    color: white;
+}
+
+svg {
+    display: block;
+    margin: auto;
+    margin-top: -15px;
+}
+
+#log_in_text {
+    color: white;
+}

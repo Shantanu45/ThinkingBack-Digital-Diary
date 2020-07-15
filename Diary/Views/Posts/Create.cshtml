@@ -1,0 +1,59 @@
+﻿@using System.Net
+@model Diary.Models.Post
+@*<link rel="stylesheet" href="~/css/editStyle.css">*@
+
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+<link rel="stylesheet" href="~/lib/dist/css/medium-editor.min.css">
+<link rel="stylesheet" href="~/lib/dist/css/themes/default.min.css" id="medium-editor-theme">
+
+<script>
+    function getContent() { document.getElementById("bodyText").value = document.getElementsByClassName("editable")[0].innerHTML; }
+</script>
+
+<div class="card w-75 h-100" style="margin:auto; min-height:80%">
+    <div class="card-body row">
+        <div class="col-lg-10">
+            <form asp-action="Create" id="create_form" onsubmit="return getContent()">
+                <input type="hidden" asp-for="Id" />
+                <h2 style="font-family: 'Raleway', sans-serif; font-size: 3em"><input asp-for="Title" placeholder="Title" style="border:none" /></h2>
+                @*<input asp-for="Body" placeholder="Body" />*@
+                <textarea asp-for="Body" id="bodyText" style="display:none"></textarea>
+
+            </form>
+            <hr />
+            <div class="editable  editor" style="font-family: 'Dancing Script', cursive; font-size:2em">
+            </div>
+
+        </div>
+        <div class="col-lg-2">
+            <div class="row">
+                <h6>@DateTime.Now</h6>
+                <select form="create_form" name="themeColor" id="cars">
+                    <option value="0, 0%, 100%" selected>Select Color</option>
+
+                    <option value="61, 92%, 85%">Yellow</option>
+                    <option value="221, 92%, 85%">Blue</option>
+                    <option value="0, 100%, 86%">Red</option>
+                    <option value="101, 100%, 86%">Green</option>
+                </select>
+            </div>
+            <div class="row">
+                <button type="submit" form="create_form">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/dist/js/medium-editor.min.js"></script>
+<script>
+    let EditedPlaceholder = MediumEditor.extensions.placeholder;
+    EditedPlaceholder.prototype.text = "Write Here"
+    let editedPlcHdr = new EditedPlaceholder();
+    let editor = new MediumEditor('.editable', {
+        buttonLabels: 'fontawesome',
+        elementsContainer: document.getElementById('container'),
+        extensions: {
+            'edited': editedPlcHdr
+        }
+    });
+</script>

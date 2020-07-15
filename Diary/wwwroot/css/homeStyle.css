@@ -1,0 +1,80 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+html, body {
+    height: 100%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+
+#detail_card {
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+#date {
+    margin: auto;
+    color: rgb(91, 190, 52);
+    font-size: 1.2em;
+}
+
+#log_in_button {
+    border: none;
+    background-color: rgb(91, 190, 52);
+    color: white;
+}
+
+.card {
+    animation-name: onhoverout;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes onhover {
+    from {
+        transform: scale(1);
+    }
+
+    70% {
+        transform: scale(1.05);
+    }
+
+    90% {
+        transform: scale(1.03);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+}
+
+@keyframes onhoverout {
+    from {
+        transform: scale(1.04);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.card:hover {
+    animation-name: onhover;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+.Page li {
+    padding: 20px 10px;
+
+}
+
+.Page a {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: rgba(255, 129, 107, 0.8);
+    color: white;
+    border: solid 3px rgb(255, 156, 85);
+}
+

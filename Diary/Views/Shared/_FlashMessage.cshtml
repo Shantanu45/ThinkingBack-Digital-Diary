@@ -1,0 +1,19 @@
+﻿@using Diary.Controllers;
+@{
+  
+    string text = (string)TempData["FlashMessage.Text"];
+    string cssClass = null;
+    if (!string.IsNullOrWhiteSpace(text))
+    {
+        FlashController.FlashMessageType type = (FlashController.FlashMessageType)TempData["FlashMessage.Type"];
+        cssClass = type.ToString().ToLower();
+    }
+}
+@if (!string.IsNullOrWhiteSpace(text))
+{
+    <div class="@cssClass">
+        <p>
+            @text
+        </p>
+    </div>
+}

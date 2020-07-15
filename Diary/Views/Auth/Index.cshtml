@@ -1,0 +1,36 @@
+﻿<link rel="stylesheet" href="~/css/loginStyle.css"/>
+
+<div class="card w-50 shadow align-self-center" id="login_card">
+    <div class="row m-0 p-0" id="login_row">
+        <div class="col-10 row-height" id="right_column">
+            <form action="/Auth/Index" method="post" id="login_form">
+                <input type="text" placeholder="Username" name="username" required/>
+                <input type="password" placeholder="Password" name="password" required/>
+            </form>
+            <a asp-controller="ForgotPassword" asp-action="Index" id="forgot_password">Forgot Password?</a>
+        </div>
+        <div class="col-2" id="left_column">
+            <a asp-controller="Auth" asp-action="Register" class="row h-50" id="left_column_top">
+                <span id="sign_up_text">Sign Up</span>
+            </a>
+            <div class="row h-50" id="left_column_bottom">
+                <button form="login_form" type="submit" class="w-100" id="log_in_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="56" height="56"
+                         viewBox="0 0 172 172" style=" fill:#000000;">
+                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                           stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                           font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                           style="mix-blend-mode: normal">
+                            <path d="M0,172v-172h172v172z" fill="none"></path>
+                            <g fill="#ffffff">
+                                <path d="M145.48333,43.35833l-84.56667,84.56667l-34.4,-34.4l-10.03333,10.39167l44.43333,44.075l94.6,-94.6z">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                    <span id="log_in_text">Log In</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

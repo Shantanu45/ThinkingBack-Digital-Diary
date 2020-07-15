@@ -1,0 +1,79 @@
+﻿
+@model Diary.Models.Post
+@*<link rel="stylesheet" href="~/css/editStyle.css">*@
+
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+<link rel="stylesheet" href="~/lib/dist/css/medium-editor.min.css">
+<link rel="stylesheet" href="~/lib/dist/css/themes/default.min.css" id="medium-editor-theme">
+
+<script>
+    function getContent() { document.getElementById("bodyText").value = document.getElementsByClassName("editable")[0].innerHTML; }
+</script>
+
+<div class="card w-75 h-100" style="margin:auto; min-height:80%">
+    <div class="card-body row m-0 p-0">
+        <div class="col-lg-10">
+            <form asp-action="Edit" id="post_form" onsubmit="return getContent()">
+                <input type="hidden" asp-for="Id" />
+                <h2 style="font-family: 'Raleway', sans-serif; font-size: 3em"><input asp-for="Title" placeholder="Title" style="border:none" /></h2>
+                @*<input asp-for="Body" placeholder="Body" />*@
+                <textarea asp-for="Body" id="bodyText" style="display:none"></textarea>
+
+            </form>
+            <hr />
+            <div class="editable  editor" style="font-family: 'Dancing Script', cursive; font-size:2em">
+                @Html.Raw(Model.Body)
+            </div>
+
+        </div>
+        <div class="col-lg-2 m-0">
+            <div class="row p-0 m-0" style="position:absolute; right:0px">
+                <form asp-action="Remove">
+                    <input type="hidden" asp-for="Id" />
+                    <button class="btn btn-danger" type="submit" style="width: 100%">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            <div class="row  m-0 px-0" style="font-family: 'Raleway';font-size: 3rem; color:grey">
+                <span id="date day">@Model.Date.Day</span>
+                <span id="date month">@Model.Date.ToString("MMMM")</span>
+            </div>
+            <div class="row">
+                <select form="post_form" name="themeColor" id="cars" style="width:100%; border: none; padding:5px; ">
+                    <option value="0, 0%, 100%" selected hidden>Theme Color</option>
+
+                    <option value="61, 92%, 85%" style="background-color:hsl(61, 92%, 85%)">Yellow</option>
+                    <option value="221, 92%, 85%" style="background-color: hsl(221, 92%, 85%)">Blue</option>
+                    <option value="0, 100%, 86%" style="background-color:hsl(0, 100%, 86%)">Red</option>
+                    <option value="101, 100%, 86%" style="background-color:hsl(101, 100%, 86%)">Green</option>
+                </select>
+            </div>
+            <div class="row w-100" style="position:absolute; bottom:0px; height: 150px">
+                <button class="bg-success text-white" type="submit" style="width:100%; border:none; border-radius:5px" form="post_form">
+                    <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-check2-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 0 0 3 14.5h10a1.5 1.5 0 0 0 1.5-1.5V8a.5.5 0 0 0-1 0v5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 0 0-1H3A1.5 1.5 0 0 0 1.5 3v10z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/dist/js/medium-editor.min.js"></script>
+<script>
+    let EditedPlaceholder = MediumEditor.extensions.placeholder;
+    EditedPlaceholder.prototype.text = "Write Here"
+    let editedPlcHdr = new EditedPlaceholder();
+    let editor = new MediumEditor('.editable', {
+        buttonLabels: 'fontawesome',
+        elementsContainer: document.getElementById('container'),
+        extensions: {
+            'edited': editedPlcHdr
+        }
+    });
+</script>
